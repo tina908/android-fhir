@@ -25,7 +25,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.search.Order
 import com.google.android.fhir.search.StringFilterModifier
-import com.google.android.fhir.search.count
 import com.google.android.fhir.search.search
 import kotlinx.coroutines.launch
 import org.hl7.fhir.r4.model.Patient
@@ -142,7 +141,7 @@ internal fun Patient.toPatientItem(position: Int): PatientListViewModel.PatientI
     dob = dob,
     phone = phone,
     city = city,
-    country = country,
+    country = country ?: "Sample country",
     isActive = isActive,
     html = html
   )
