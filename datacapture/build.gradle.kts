@@ -9,9 +9,9 @@ afterEvaluate {
     publications {
       register("release", MavenPublication::class) {
         from(components["release"])
-        artifactId = "data-capture"
+        artifactId = "datacapture"
         groupId = "com.google.android.fhir"
-        version = "0.1.0-alpha04"
+        version = "0.1.0.2-alpha04"
         // Also publish source code for developers' convenience
         artifact(
           tasks.create<Jar>("androidSourcesJar") {
@@ -103,6 +103,10 @@ dependencies {
   testImplementation(Dependencies.truth)
 }
 
+/**Create github.properties in root project folder file with gpr.usr=GITHUB_USER_ID  & gpr.key=PERSONAL_ACCESS_TOKEN**/
+//val githubProperties = Properties()
+//githubProperties.load(FileInputStream(rootProject.file("github.properties")))
+
 tasks {
   val sourcesJar by creating(Jar::class) {
     // dependsOn(JavaPlugin.CLASSES_TASK_NAME)
@@ -114,10 +118,10 @@ tasks {
 }
 
 fun getVersionName(): String {
-  return "0.1.0.1-alpha04" // Replace with version Name
+  return "0.1.0.2-alpha04" // Replace with version Name
 }
 
-fun getArtifactId(): String {
+fun getArtificatId(): String {
   return "datacapture" // Replace with library name ID
 }
 
@@ -126,9 +130,9 @@ publishing {
     create<MavenPublication>("datacapture") {
       run {
         groupId = "com.google.android.fhir"
-        artifactId = getArtifactId()
+        artifactId = getArtificatId()
         version = getVersionName()
-        artifact("$buildDir/outputs/aar/${getArtifactId()}-release.aar")
+        artifact("$buildDir/outputs/aar/${getArtificatId()}-release.aar")
       }
     }
   }
@@ -145,8 +149,8 @@ publishing {
          * OR
          * Set environment variables
          */
-        username = "user"
-        password = "github_token_password"
+        username = "username"
+        password = "password"
 
       }
     }
