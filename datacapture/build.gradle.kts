@@ -118,7 +118,7 @@ tasks {
 }
 
 fun getVersionName(): String {
-  return "0.1.0.2-alpha04" // Replace with version Name
+  return "0.1.0.3-alpha04" // Replace with version Name
 }
 
 fun getArtificatId(): String {
