@@ -1100,16 +1100,46 @@ class ResourceMapperTest {
           }
         )
 
-    val patient =
-      Patient().apply {
-        gender = Enumerations.AdministrativeGender.FEMALE
-        id = UUID.randomUUID().toString()
-      }
+    val patientId = UUID.randomUUID().toString()
+    val patient = Patient().apply { id = "Patient/$patientId" }
     val questionnaireResponse: QuestionnaireResponse
     runBlocking { questionnaireResponse = ResourceMapper.populate(questionnaire, patient) }
 
     assertThat((questionnaireResponse.item[0].answer[0].value as StringType).value)
-      .isEqualTo(patient.id)
+      .isEqualTo(patientId)
+  }
+
+  @Test
+  fun `populate() should correctly populate IdType value with history in QuestionnaireResponse`() {
+    val ITEM_EXTRACTION_CONTEXT_EXTENSION_URL =
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression"
+
+    val questionnaire =
+      Questionnaire()
+        .addItem(
+          Questionnaire.QuestionnaireItemComponent().apply {
+            linkId = "patient-id"
+            type = Questionnaire.QuestionnaireItemType.TEXT
+            extension =
+              listOf(
+                Extension(
+                  ITEM_EXTRACTION_CONTEXT_EXTENSION_URL,
+                  Expression().apply {
+                    language = "text/fhirpath"
+                    expression = "Patient.id"
+                  }
+                )
+              )
+          }
+        )
+
+    val patientId = UUID.randomUUID().toString()
+    val patient = Patient().apply { id = "Patient/$patientId/_history/2" }
+    val questionnaireResponse: QuestionnaireResponse
+    runBlocking { questionnaireResponse = ResourceMapper.populate(questionnaire, patient) }
+
+    assertThat((questionnaireResponse.item[0].answer[0].value as StringType).value)
+      .isEqualTo(patientId)
   }
 
   @Test
@@ -1151,11 +1181,7 @@ class ResourceMapperTest {
           }
         )
 
-    val patient =
-      Patient().apply {
-        gender = Enumerations.AdministrativeGender.FEMALE
-        id = UUID.randomUUID().toString()
-      }
+    val patient = Patient().apply { gender = Enumerations.AdministrativeGender.FEMALE }
     val questionnaireResponse: QuestionnaireResponse
     runBlocking { questionnaireResponse = ResourceMapper.populate(questionnaire, patient) }
 
