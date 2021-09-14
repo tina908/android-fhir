@@ -11,7 +11,7 @@ afterEvaluate {
         from(components["release"])
         artifactId = "datacapture"
         groupId = "com.google.android.fhir"
-        version = "0.1.0.2-alpha04"
+        version = "0.1.0.3-alpha04"
         // Also publish source code for developers' convenience
         artifact(
           tasks.create<Jar>("androidSourcesJar") {
@@ -118,7 +118,7 @@ tasks {
 }
 
 fun getVersionName(): String {
-  return "0.1.0.2-alpha04" // Replace with version Name
+  return "0.1.0.3-alpha04" // Replace with version Name
 }
 
 fun getArtificatId(): String {
