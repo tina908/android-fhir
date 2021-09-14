@@ -587,6 +587,11 @@ private fun Class<*>.getFieldOrNull(name: String): Field? {
 private fun Base.asExpectedType(): Type {
   return when (this) {
     is Enumeration<*> -> toCoding()
+    is IdType ->
+      StringType().apply {
+        val parts = this@asExpectedType.value.split("/")
+        value = if (parts.size > 1) parts[1] else parts[0]
+      }
     else -> this as Type
   }
 }
