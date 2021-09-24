@@ -85,12 +85,12 @@ jobs:
       if: matrix.api-level == 29 # don't run full build on older APIs
       run: ./gradlew build
 
-    - name: Run Integration Tests
+    - name: Run Unit & Integration Tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: ${{ matrix.api-level }}
         arch: x86_64
-        script: ./gradlew connectedCheck --info
+        script: ./gradlew check connectedCheck --info
 
     - name: Upload coverage reports to codecov.io
       if: matrix.api-level == 29 # Only upload coverage from API 29
