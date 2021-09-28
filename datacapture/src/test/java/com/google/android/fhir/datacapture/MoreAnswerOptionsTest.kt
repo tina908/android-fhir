@@ -40,15 +40,6 @@ class MoreAnswerOptionsTest {
   }
 
   @Test
-  fun getDisplayString_emptyDisplay_answerOptionShouldReturnValueCodingValue() {
-    val answerOption =
-      Questionnaire.QuestionnaireItemAnswerOptionComponent()
-        .setValue(Coding().setCode("test-code").setDisplay(""))
-
-    assertThat(answerOption.displayString).isEqualTo("test-code")
-  }
-
-  @Test
   fun getDisplayString_choiceItemType_answerOptionShouldReturnValueCodingCodeValue() {
     val answerOption =
       Questionnaire.QuestionnaireItemAnswerOptionComponent().setValue(Coding().setCode("test-code"))

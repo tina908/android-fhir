@@ -82,6 +82,16 @@ class QuestionnaireItemAutoCompleteViewHolderFactoryInstrumentedTest {
 
   @Test
   @UiThreadTest
+  fun getDisplayString_emptyDisplay_answerOptionShouldReturnValueCodingValue() {
+    val answerOption =
+      Questionnaire.QuestionnaireItemAnswerOptionComponent()
+        .setValue(Coding().setCode("test-code").setDisplay(""))
+
+    assertThat(answerOption.displayString).isEqualTo("test-code")
+  }
+
+  @Test
+  @UiThreadTest
   fun shouldSetTextViewText() {
     viewHolder.bind(
       QuestionnaireItemViewItem(
