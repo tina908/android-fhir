@@ -17,7 +17,6 @@
 package com.google.android.fhir.datacapture
 
 import android.os.Build
-import androidx.test.annotation.UiThreadTest
 import com.google.common.truth.Truth.assertThat
 import org.hl7.fhir.r4.model.Attachment
 import org.hl7.fhir.r4.model.BooleanType
@@ -36,32 +35,27 @@ import org.robolectric.annotation.Config
 class MoreTypesTest {
 
   @Test
-  @UiThreadTest
   fun equals_differentTypes_shouldReturnFalse() {
     assertThat(equals(BooleanType(true), DecimalType(1.1))).isFalse()
   }
 
   @Test
-  @UiThreadTest
   fun equals_sameObject_shouldReturnTrue() {
     val value = BooleanType(true)
     assertThat(equals(value, value)).isTrue()
   }
 
   @Test
-  @UiThreadTest
   fun equals_samePrimitiveValue_shouldReturnTrue() {
     assertThat(equals(DecimalType(1.1), DecimalType(1.1))).isTrue()
   }
 
   @Test
-  @UiThreadTest
   fun equals_differentPrimitiveValues_shouldReturnFalse() {
     assertThat(equals(DecimalType(1.1), DecimalType(1.2))).isFalse()
   }
 
   @Test
-  @UiThreadTest
   fun equals_coding_differentSystems_shouldReturnFalse() {
     assertThat(
         equals(Coding("system", "code", "display"), Coding("otherSystem", "code", "display"))
@@ -70,7 +64,6 @@ class MoreTypesTest {
   }
 
   @Test
-  @UiThreadTest
   fun equals_coding_differentCodes_shouldReturnFalse() {
     assertThat(
         equals(Coding("system", "code", "display"), Coding("system", "otherCode", "display"))
@@ -79,7 +72,6 @@ class MoreTypesTest {
   }
 
   @Test
-  @UiThreadTest
   fun equals_coding_differentDisplays_shouldReturnTrue() {
     assertThat(
         equals(Coding("system", "code", "display"), Coding("system", "code", "otherDisplay"))
@@ -88,7 +80,6 @@ class MoreTypesTest {
   }
 
   @Test
-  @UiThreadTest
   fun equals_attachment_shouldThrowException() {
     val exception =
       assertThrows(NotImplementedError::class.java) { equals(Attachment(), Attachment()) }
@@ -98,7 +89,6 @@ class MoreTypesTest {
   }
 
   @Test
-  @UiThreadTest
   fun equals_quantity_shouldThrowException() {
     val exception = assertThrows(NotImplementedError::class.java) { equals(Quantity(), Quantity()) }
 
@@ -107,7 +97,6 @@ class MoreTypesTest {
   }
 
   @Test
-  @UiThreadTest
   fun equals_reference_shouldThrowException() {
     val exception =
       assertThrows(NotImplementedError::class.java) { equals(Reference(), Reference()) }
