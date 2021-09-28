@@ -16,8 +16,8 @@
 
 package com.google.android.fhir.datacapture
 
-import android.os.Build
 import androidx.lifecycle.SavedStateHandle
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.parser.IParser
 import com.google.common.truth.Truth.assertThat
@@ -35,11 +35,8 @@ import org.hl7.fhir.r4.model.StringType
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
-@RunWith(RobolectricTestRunner::class)
-@Config(sdk = [Build.VERSION_CODES.P])
+@RunWith(AndroidJUnit4::class)
 class QuestionnaireViewModelTest {
   private lateinit var state: SavedStateHandle
 
