@@ -107,6 +107,7 @@ dependencies {
   androidTestImplementation(Dependencies.AndroidxTest.core)
   androidTestImplementation(Dependencies.AndroidxTest.extJunitKtx)
   androidTestImplementation(Dependencies.AndroidxTest.runner)
+  androidTestImplementation(Dependencies.AndroidxTest.workTestingRuntimeKtx)
   androidTestImplementation(Dependencies.junit)
   androidTestImplementation(Dependencies.truth)
 
@@ -133,7 +134,6 @@ dependencies {
   testImplementation(Dependencies.junit)
   testImplementation(Dependencies.Kotlin.kotlinCoroutinesTest)
   testImplementation(Dependencies.AndroidxTest.workTestingRuntimeKtx)
-  androidTestImplementation(Dependencies.AndroidxTest.workTestingRuntimeKtx)
   testImplementation(Dependencies.AndroidxTest.archCore)
   testImplementation(Dependencies.mockitoKotlin)
   testImplementation(Dependencies.robolectric)

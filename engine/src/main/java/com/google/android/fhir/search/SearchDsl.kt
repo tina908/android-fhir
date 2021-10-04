@@ -23,6 +23,7 @@ import ca.uhn.fhir.rest.gclient.QuantityClientParam
 import ca.uhn.fhir.rest.gclient.ReferenceClientParam
 import ca.uhn.fhir.rest.gclient.StringClientParam
 import ca.uhn.fhir.rest.gclient.TokenClientParam
+import ca.uhn.fhir.rest.gclient.UriClientParam
 import ca.uhn.fhir.rest.param.ParamPrefixEnum
 import java.math.BigDecimal
 import org.hl7.fhir.r4.model.CodeType
@@ -116,6 +117,10 @@ data class Search(val type: ResourceType, var count: Int? = null, var from: Int?
     val filter = NumberFilter(numberParameter)
     filter.init()
     numberFilter.add(filter)
+  }
+
+  fun filter(numberParameter: UriClientParam, string: String) {
+    // TODO
   }
 
   fun sort(parameter: StringClientParam, order: Order) {

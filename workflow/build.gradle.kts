@@ -43,10 +43,23 @@ dependencies {
     androidTestImplementation(Dependencies.AndroidxTest.extJunitKtx)
     androidTestImplementation(Dependencies.AndroidxTest.runner)
 
+    api(Dependencies.HapiFhir.structuresR4) { exclude(module = "junit") }
+
     coreLibraryDesugaring(Dependencies.desugarJdkLibs)
 
     implementation(Dependencies.Kotlin.androidxCoreKtx)
+    implementation(Dependencies.Kotlin.kotlinCoroutinesAndroid)
+    implementation(Dependencies.Kotlin.kotlinCoroutinesCore)
     implementation(Dependencies.Kotlin.stdlib)
+//    implementation("org.opencds.cqf.cql:engine:1.5.2-SNAPSHOT")
+//    implementation("org.opencds.cqf.cql:engine.fhir:1.5.2-SNAPSHOT")
+    implementation("org.opencds.cqf.cql:evaluator:1.2.1-SNAPSHOT")
+    implementation("org.opencds.cqf.cql:evaluator.builder:1.2.1-SNAPSHOT")
+    implementation("org.opencds.cqf.cql:evaluator.dagger:1.2.1-SNAPSHOT")
+    implementation(project(":engine"))
 
+    testImplementation(Dependencies.AndroidxTest.core)
     testImplementation(Dependencies.junit)
+    testImplementation(Dependencies.robolectric)
+    testImplementation(Dependencies.truth)
 }
