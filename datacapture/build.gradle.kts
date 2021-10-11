@@ -46,6 +46,8 @@ android {
     testInstrumentationRunnerArguments["package"] = "com.google.android.fhir.datacapture"
   }
 
+  buildFeatures { viewBinding = true }
+
   buildTypes {
     getByName("release") {
       isMinifyEnabled = false
