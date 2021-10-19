@@ -2,6 +2,7 @@ plugins {
   id(Plugins.BuildPlugins.androidLib)
   id(Plugins.BuildPlugins.kotlinAndroid)
   id(Plugins.BuildPlugins.mavenPublish)
+  jacoco
 }
 
 afterEvaluate {
@@ -65,6 +66,14 @@ android {
     // See https://developer.android.com/studio/write/java8-support
     jvmTarget = JavaVersion.VERSION_1_8.toString()
   }
+  tasks {
+    withType<Test> {
+      configure<JacocoTaskExtension> {
+        isIncludeNoLocationClasses = true
+        exclude("jdk.internal.*")
+      }
+    }
+  }
   testOptions { unitTests.isIncludeAndroidResources = true }
   jacoco { version = "0.8.7" }
 }
@@ -103,4 +112,33 @@ dependencies {
   testImplementation(Dependencies.mockitoKotlin)
   testImplementation(Dependencies.robolectric)
   testImplementation(Dependencies.truth)
+}
+
+// https://proandroiddev.com/unified-code-coverage-for-android-revisited-44789c9b722f
+// https://github.com/tngcanh07/survey-android/blob/070b5cd9b9037c20009f77d3dc3fe95d896cc20c/data/build.gradle.kts
+tasks.create(name = "jacocoTestReport", type = JacocoReport::class) {
+  setDependsOn(setOf("testDebugUnitTest", "createDebugCoverageReport"))
+  sourceDirectories.setFrom("$projectDir/src/main/java")
+  classDirectories.setFrom(
+    fileTree("$buildDir/tmp/kotlin-classes/debug") {
+      setExcludes(
+        listOf(
+          "**/test/**",
+          "**/R.class",
+          "**/R$*.class",
+          "**/BuildConfig.*",
+          "**/Manifest*.*",
+          "**/*Test*.*",
+          "android/**/*.*"
+        )
+      )
+    }
+  )
+  executionData.setFrom(
+    fileTree(projectDir) {
+      setIncludes(listOf("outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec", "outputs/code_coverage/debugAndroidTest/connected/**/*.ec"))
+//      setIncludes(listOf("$buildDir/outputs/code_coverage/debugAndroidTest/connected/**/*.ec"))
+//      setIncludes(listOf(""))
+    }
+  )
 }
