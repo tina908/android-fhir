@@ -136,9 +136,15 @@ tasks.create(name = "jacocoTestReport", type = JacocoReport::class) {
   )
   executionData.setFrom(
     fileTree(projectDir) {
-      setIncludes(listOf("outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec", "outputs/code_coverage/debugAndroidTest/connected/**/*.ec"))
-//      setIncludes(listOf("$buildDir/outputs/code_coverage/debugAndroidTest/connected/**/*.ec"))
-//      setIncludes(listOf(""))
+      setIncludes(
+        listOf(
+          "outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec",
+          "outputs/code_coverage/debugAndroidTest/connected/**/*.ec"
+        )
+      )
+      //
+      // setIncludes(listOf("$buildDir/outputs/code_coverage/debugAndroidTest/connected/**/*.ec"))
+      //      setIncludes(listOf(""))
     }
   )
 }
